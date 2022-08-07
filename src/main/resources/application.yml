@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:mysql://prudential.mysql.database.azure.com:3306/carrental?useSSL=true
+    username: sachikossr
+    password: Zjn930508
+  thymeleaf:
+    cache: false
+    suffix: .html
+mybatis:
+  type-aliases-package: com.prudential.carrental.entity
+  mapper-locations: classpath:com.prudential.carrental.dao/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
