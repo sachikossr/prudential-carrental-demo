@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script th:src="@{bootstrap/index.js}"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="col-sm-12 column">
+        <ol class="breadcrumb">
+            <li class="active">Car Rental Company
+            </li>
+        </ol>
+        <div class="table-responsive">
+            <table class="table table-striped ">
+                <thead>
+                <tr>
+                    <th>Car Id</th>
+                    <th>Car Model</th>
+                    <th>In Stock</th>
+                    <th>Tenancy</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="car:${carList}">
+                    <td th:text="${car.cid}" style="text-align:left;vertical-align:middle;"></td>
+                    <td th:text="${car.model}" style="text-align:left;vertical-align:middle;"></td>
+                    <td th:text="${car.inStock}" style="text-align:left;vertical-align:middle;"></td>
+                    <td th:text="${car.tenancy}" style="text-align:left;vertical-align:middle;"></td>
+                    <td>
+                        <div class="btn-group">
+                            <form action="#" th:action="@{/rent/}+${car.getCid()}" th:object="${orderDto}"
+                                  th:method="post">
+                                Customer Name：<input type="text" th:field="*{customer}" id="customer">
+                                Rent Days：<input type="text" th:field="*{days}" id="days">
+                                <input type="submit" value="Rent">
+                            </form>
+                            <form action="#" th:action="@{/return/}+${car.getCid()}" th:object="${orderDto}"
+                                  th:method="post">
+                                <input type="submit" value="Return">
+                            </form>
+                        </div>
+        </div>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+    <ol class="breadcrumb">
+        <li class="active">Order Detail
+        </li>
+    </ol>
+    <div class="table-responsive">
+        <table class="table table-striped ">
+            <thead>
+            <tr>
+                <th>Car Id</th>
+                <th>Customer</th>
+                <th>Rent Time</th>
+                <th>Is Returned</th>
+                <th>Return Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order:${orderList}">
+                <td th:text="${order.cid}" style="text-align:left;vertical-align:middle;"></td>
+                <td th:text="${order.customer}" style="text-align:left;vertical-align:middle;"></td>
+                <td th:text="${order.rentTimeStr}" style="text-align:left;vertical-align:middle;"></td>
+                <td th:text="${order.returned}" style="text-align:left;vertical-align:middle;"></td>
+                <td th:text="${order.returnTimeStr}" style="text-align:left;vertical-align:middle;"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</body>
+</html>

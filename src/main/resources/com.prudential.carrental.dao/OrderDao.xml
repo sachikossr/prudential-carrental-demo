@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prudential.carrental.dao.OrderDao">
+    <!-- 查询 -->
+    <select id="findOrderList" resultType="order">
+        select *
+        from orders
+        where 1 = 1
+        order by rent_time desc
+    </select>
+    <select id="findNoReturnedOrderByCid" resultType="order">
+        select *
+        from orders
+        where cid = #{cid}
+          and returned = 0
+    </select>
+    <!--添加-->
+    <insert id="saveOrder" parameterType="order">
+        insert into orders
+            (cid, customer, rent_time, return_time, returned)
+            value
+            (#{cid},#{customer},#{rentTime},#{returnTime}, 0 )
+    </insert>
+    <!--更新-->
+    <update id="updateOrder" parameterType="order">
+        update orders
+        set returned   = 1,
+            return_time=#{returnTime}
+        where oid = #{oid}
+    </update>
+</mapper>
